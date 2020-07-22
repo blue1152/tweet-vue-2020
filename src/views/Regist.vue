@@ -9,6 +9,7 @@
         <label for="name">Name</label>
         <input
           id="name"
+          v-model="name"
           name="name"
           type="text"
           class="form-control"
@@ -23,6 +24,7 @@
         <label for="email">Email</label>
         <input
           id="email"
+          v-model="email"
           name="email"
           type="email"
           class="form-control"
@@ -36,6 +38,7 @@
         <label for="password">Password</label>
         <input
           id="password"
+          v-model="password"
           name="password"
           type="password"
           class="form-control"
@@ -49,6 +52,7 @@
         <label for="password-check">Password Check</label>
         <input
           id="password-check"
+          v-model="passwordCheck"
           name="passwordCheck"
           type="password"
           class="form-control"
