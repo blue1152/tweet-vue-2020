@@ -18,7 +18,7 @@ npm run serve
 ### 在瀏覽器輸入以下網址, 即可瀏覽頁面:
 ```
   - Local:   http://localhost:8080/
-  - Network: http://172.17.3.59:8080/
+  - Network: http://[*自己的ip位置*]:8080/
 ```
 ## 前端路由
 - /tweets  主頁
@@ -28,9 +28,6 @@ npm run serve
 - /tweets/user/setting 使用者設定
 - /tweets/user/followers 自己的跟隨誰清單
 - /tweets/user/following 自己的跟隨者清單
-- /tweets/user/post 自己的推文清單
-- /tweets/user/likes 自己的喜歡內容
-- /tweets/user/reply 自己的推文詳情頁
 - /tweets/otheruser 別人的 user profile
 - /admin/postslist 後台推文清單
 - /admin/userslist 後台使用者清單

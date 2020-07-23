@@ -50,21 +50,6 @@ const routes = [
     component: () => import('../views/Following.vue') // 自己的跟隨者清單
   },
   {
-    path: '/tweets/user/post',
-    name: 'post',
-    component: () => import('../views/UserPost.vue') // 自己的推文清單
-  },
-  {
-    path: '/tweets/user/likes',
-    name: 'likes',
-    component: () => import('../views/UserLikes.vue') // 自己的喜歡內容
-  },
-  {
-    path: '/tweets/user/reply',
-    name: 'reply',
-    component: () => import('../views/UserReply.vue') // 自己的推文詳情頁
-  },
-  {
     path: '/tweets/otheruser',
     name: 'otheruser',
     component: () => import('../views/OtherUser.vue') // 別人的 user profile
@@ -87,6 +72,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  linkExactActiveClass: "active",
   routes,
 });
 
