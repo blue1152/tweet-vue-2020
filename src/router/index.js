@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    redirect: '/tweets'
+    redirect: '/login', // 登入後才能使用
   },
   {
     path: "/tweets",
