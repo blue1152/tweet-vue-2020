@@ -8,8 +8,8 @@ git clone https://github.com/blue1152/tweet-vue-2020.git
 ### 在/tweet-vue-2020目錄下, 終端機輸入以下指令:
 ```
 npm install
+npm install -D sass-loader node-sass
 ```
-
 ## 使用瀏覽器開啟
 ### 終端機輸入以下指令:
 ```
@@ -20,6 +20,10 @@ npm run serve
   - Local:   http://localhost:8080/
   - Network: http://[*自己的ip位置*]:8080/
 ```
+## 使用套件
+- Vuex
+- sass-loader 
+- node-sass
 ## 前端路由
 - /tweets  主頁
 - /login 使用者登入頁
