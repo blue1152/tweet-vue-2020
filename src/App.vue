@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <main
-      role="main"
-      class="mt-5 bg-white"
-    >
+    <main role="main" class="mt-5 bg-white">
       <router-view />
     </main>
   </div>
@@ -16,8 +13,7 @@ export default {
 };
 </script>
 <style>
-  @import '../public/index.css';
+@import "../public/index.css";
 </style>
 <style lang="scss">
-// 版面配置
 </style>

@@ -1,50 +1,50 @@
 <template>
-<div class="rightbar-wrapper">
-<div class="follow-title">跟隨誰</div>
-<div class="follow-list">
-<div class="user-data">
-  <div class="user-account">
-    <img :src="imgSrc" alt="photo">
-    <span>
-      <div class="user-name">Pizza Hut</div>
-      <div class="account-name">@pizzahut</div>
-    </span>
+  <div class="rightbar-wrapper">
+    <div class="follow-title">跟隨誰</div>
+    <div class="follow-list">
+      <div class="user-data">
+        <div class="user-account">
+          <img :src="imgSrc" alt="photo" />
+          <span>
+            <div class="user-name">Pizza Hut</div>
+            <div class="account-name">@pizzahut</div>
+          </span>
+        </div>
+        <div class="follow-btn active">正在跟隨</div>
+      </div>
+      <div class="user-data">
+        <div class="user-account">
+          <img :src="imgSrc" alt="photo" />
+          <span>
+            <div class="user-name">McDonald's</div>
+            <div class="account-name">@McDonalds</div>
+          </span>
+        </div>
+        <div class="follow-btn">跟隨</div>
+      </div>
+    </div>
+    <div class="more-btn">顯示更多</div>
   </div>
-  <div class="follow-btn active">正在跟隨</div>
-</div>
-<div class="user-data">
-  <div class="user-account">
-    <img :src="imgSrc" alt="photo">
-    <span>
-      <div class="user-name">McDonald's</div>
-      <div class="account-name">@McDonalds</div>
-    </span>
-  </div>
-  <div class="follow-btn">跟隨</div>
-</div>
-</div>
-<div class="more-btn">顯示更多</div>
-</div>
 </template>
 <script>
 export default {
   name: "rightbar-wrapper",
-  data () {
+  data() {
     return {
-      imgSrc: './Photo.svg',
-    }  
+      imgSrc: "./Photo.svg",
+    };
   },
-}
+};
 </script>
 <style lang="scss">
 // 變數設置
-$orange: #FF6600;
+$orange: #ff6600;
 $main-black: #000;
-$text-black: #1C1C1C;
-$grey: #9197A3;
+$text-black: #1c1c1c;
+$grey: #9197a3;
 $text-grey: #657786;
-$background-grey: #F5F8FA;
-$line-grey: #E6ECF0;
+$background-grey: #f5f8fa;
+$line-grey: #e6ecf0;
 
 // 版面配置
 .rightbar-wrapper {

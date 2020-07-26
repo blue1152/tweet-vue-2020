@@ -47,58 +47,69 @@
   </div>
 </template>
 <script>
-import authorizationAPI from './../apis/authorization'
-import { Toast } from './../utils/helpers'
+//import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
     handleSubmit() {
-      // const data = JSON.stringify({
-      //   email: this.email,
-      //   password: this.password
-      // });
+      // test用, 之後刪除↓ //
+      const data = JSON.stringify({
+        user: {
+          email: this.email,
+          password: this.password,
+        },
+      });
+
+      this.$router.push("/tweets"); // 登入成功後轉址
+      this.$store.commit("setCurrentUser", data.user);
+      // test用, 之後刪除↑ //
 
       if (!this.email || !this.password) {
         Toast.fire({
-          icon: 'warning',
-          title: '請填入 email 和 password'
-        })
-        return
+          icon: "warning",
+          title: "請填入 email 和 password",
+        });
+        return;
       }
 
-      authorizationAPI.logIn({
-        email: this.email,
-        password: this.password
-      }).then(response => {
-        console.log('response', response)
-        const { data } = response
-        // 未成功
-        if (data.status !== 'success') {
-          throw new Error(data.message)
-        } else {
-          // 成功
-        localStorage.setItem('token', data.token) // 存入token
-        this.$router.push('/tweets') // 登入成功後轉址
-        }
-      }).catch(error => {
-        // 將密碼欄位清空
-        this.password = ''
-        // 顯示錯誤提示
-        Toast.fire({
-          icon: 'warning',
-          title: '請確認您輸入了正確的帳號密碼'
+      /*     authorizationAPI
+        .logIn({
+          email: this.email,
+          password: this.password,
         })
-        console.log('error', error)
-      })
+        .then((response) => {
+          console.log("response", response);
+          const { data } = response;
+          // 未成功
+          if (data.status !== "success") {
+            throw new Error(data.message);
+          } else {
+            // 成功
+            localStorage.setItem("token", data.token); // 存入token
+            this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex
+            this.$router.push("/tweets"); // 登入成功後轉址
+          }
+        })
+        .catch((error) => {
+          // 將密碼欄位清空
+          this.password = "";
+          // 顯示錯誤提示
+          Toast.fire({
+            icon: "warning",
+            title: "請確認您輸入了正確的帳號密碼",
+          });
+          console.log("error", error);
+        }); */
 
       // TODO: 即時檢核：如發現 token 被修改或無效，則將頁面重新導回登入頁。
       // 記住帳密：讓已經登入過的使用者可以直接進入餐廳首頁而不用重新輸入帳號密碼。
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,38 +1,63 @@
 <template>
-  <div id="userpost" style="">
-    <h2>推文們</h2>
-    <div class="card">
-    <div class="card-header">
-      最新推文
-    </div>
-    <div class="card-body">
-      <div
-        v-for="item in comments"
-        :key="item.id"
-      >
-        <h4>
-          <a href="#">{{ item.UserId }}</a>
-        </h4>
-        <p>{{ item.description }}</p>
-        {{ item.updatedAt }}
-        <hr>
+  <div id="userpost" style>
+    <div class="user-tweet">
+      <div class="tweet-body" v-for="item in data" :key="item.id">
+        <div class="user-photo"></div>
+        <div class="user-name">
+          <span>
+            <a href="#">{{ item.name }}</a>
+          </span>
+          <span style="padding-left: 10px;">@{{ item.account }}</span>
+          <span style="padding-left: 10px;">{{ item.createdAt }}</span>
+        </div>
+        <div>
+          <p>{{ item.description }}</p>
+        </div>
+        <div></div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 <script>
 export default {
   name: "userpost",
+  data() {
+    return {
+      data: [],
+    };
+  },
   props: {
-    comments: {
-      type: Array,
-      required: true
-    }
-  }
+    account: {
+      type: Object,
+      required: true,
+    },
+  },
+  created() {
+    this.dataFix();
+  },
+  methods: {
+    // 模仿api取資料
+    dataFix() {
+      const vm = this;
+      const dataTweets = vm.account.user.Tweets;
+      const dataName = vm.account.user.name;
+      const dataAccount = vm.account.account;
+      const reformattedArray = dataTweets.map(function (obj) {
+        const rObj = {};
+        rObj.name = dataName;
+        rObj.account = dataAccount;
+        rObj.id = obj.id;
+        rObj.description = obj.description;
+        rObj.createdAt = obj.createdAt;
+        rObj.updatedAt = obj.updatedAt;
+        return rObj;
+      });
+      //console.log(reformattedArray);
+      return (vm.data = reformattedArray);
+    },
+  },
 };
 </script>
 <style lang="scss">
 // 版面配置
-
 </style>
