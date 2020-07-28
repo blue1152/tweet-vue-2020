@@ -2,26 +2,24 @@
   <div class="container py-5">
     <form class="w-100" @submit.prevent.stop="handleSubmit()">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Log In</h1>
+        <h1 class="h3 mb-3 font-weight-normal">登入Alphitter</h1>
       </div>
 
       <div class="form-label-group mb-2">
-        <label for="email">email</label>
+        <label for="account">帳號</label>
         <input
-          id="email"
-          v-model="email"
-          name="email"
-          type="email"
+          id="account"
+          v-model="account"
+          name="account"
+          type="text"
           class="form-control"
-          placeholder="email"
-          autocomplete="username"
           required
           autofocus
         />
       </div>
 
       <div class="form-label-group mb-3">
-        <label for="password">Password</label>
+        <label for="password">密碼</label>
         <input
           id="password"
           v-model="password"
@@ -34,15 +32,16 @@
         />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">Submit</button>
+      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">登入</button>
 
       <div class="text-center mb-3">
         <p>
-          <router-link to="/signup">Sign Up</router-link>
+          <router-link to="/regist">註冊Alpitter</router-link>
+        </p>
+        <p>
+          <router-link to="/admin">後台登入</router-link>
         </p>
       </div>
-
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
     </form>
   </div>
 </template>
@@ -52,7 +51,7 @@ import { Toast } from "./../utils/helpers";
 export default {
   data() {
     return {
-      email: "",
+      account: "",
       password: "",
     };
   },
@@ -61,7 +60,7 @@ export default {
       // test用, 之後刪除↓ //
       const data = JSON.stringify({
         user: {
-          email: this.email,
+          account: this.account,
           password: this.password,
         },
       });
@@ -70,10 +69,10 @@ export default {
       this.$store.commit("setCurrentUser", data.user);
       // test用, 之後刪除↑ //
 
-      if (!this.email || !this.password) {
+      if (!this.account || !this.password) {
         Toast.fire({
           icon: "warning",
-          title: "請填入 email 和 password",
+          title: "請填入 帳號 和 密碼",
         });
         return;
       }
