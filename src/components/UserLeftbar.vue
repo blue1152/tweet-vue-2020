@@ -4,19 +4,29 @@
       <img :src="imgSrc" alt="ac_logo" />
     </div>
     <div class="nav-bar">
-      <ul>
-        <li>
+      <!-- 使用者本人 -->
+      <ul v-if="currentUser.isUser">
+        <li @click="callAjax()">
           <img :src="homeImg" alt="index" />首頁
         </li>
-        <li>
+        <li @click="callAjax()">
           <img :src="userImg" alt="user" />個人資料
         </li>
-        <li>
+        <li @click="callAjax()">
           <img :src="settingImg" alt="setting" />設定
         </li>
       </ul>
+      <!-- admin -->
+      <ul v-if="currentUser.isAdmin">
+        <li @click="callAjax()">
+          <img :src="homeImg" alt="all-tweet-list" />推文清單
+        </li>
+        <li @click="callAjax()">
+          <img :src="userImg" alt="all-user-list" />使用者列表
+        </li>
+      </ul>
     </div>
-    <div class="post-btn">推文</div>
+    <div class="post-btn" v-if="currentUser.isUser">推文</div>
     <div class="log-out">
       <img :src="logoutImg" alt="setting" />登出
     </div>
@@ -27,14 +37,16 @@
 const dummyUser = {
   currentUser: {
     id: 1,
-    name: "管理者",
+    name: "user",
     email: "root@example.com",
     image: "https://i.pravatar.cc/300",
-    isAdmin: true,
+    isAdmin: false,
+    isUser: true,
   },
   isAuthenticated: true,
 };
 // test用, 之後刪除↑ //
+//import { mapState } from 'vuex'
 export default {
   name: "leftbar-wrapper",
   data() {
@@ -50,10 +62,12 @@ export default {
         email: "",
         image: "",
         isAdmin: false,
+        isUser: true,
       },
       isAuthenticated: false,
     };
   },
+  // test用, 之後刪除↓ //
   created() {
     this.fetchUser();
   },
@@ -66,6 +80,13 @@ export default {
       this.isAuthenticated = dummyUser.isAuthenticated;
     },
   },
+  // test用, 之後刪除↑ //
+  /*
+  // computed 會將結果暫存起來，當參考到的資料改變時，computed 才會重新計算。
+  computed: {
+    ...mapState(['currentUser', 'isAuthenticated'])
+  },
+  */
 };
 </script>
 <style lang="scss">

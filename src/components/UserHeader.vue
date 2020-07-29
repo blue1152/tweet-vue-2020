@@ -28,15 +28,16 @@
       <div class="user-detail">{{ currentUser.data[0].introduction }} (這裡是introduction)</div>
       <div class="user-follow">
         <!-- 取其他路由的資料 -->
-        <span>個跟隨中</span>
+        <span>{{ followings }}個跟隨中</span>
         <!-- /api/users/:userId/followings -->
-        <span>位跟隨者</span>
+        <span>{{ followers }}位跟隨者</span>
         <!-- /api/users/:userId/followers -->
       </div>
     </section>
   </nav>
 </template>
 <script>
+// test用, 之後刪除↓ //
 // 路由 /api/users/:userId
 const dummyUser = {
   currentUser: {
@@ -155,9 +156,100 @@ const dummyUser = {
   isAuthenticated: true,
 };
 // 路由 /api/users/:userId/followings
-//const followings = {};
+const followings = {
+  data: [
+  {
+    "id": 3,
+    "email": "user1@example.com",
+    "password": "$2a$10$gf/fJqnGa/PykZ1.L7tKoelGMYPa5lYeqIYf7QJKivtwhOJrWA1u2",
+    "name": "Gerda Tillman",
+    "avatar": null,
+    "introduction": null,
+    "role": "user",
+    "account": "user1",
+    "cover": null,
+    "createdAt": "2020-07-27T02:57:17.000Z",
+    "updatedAt": "2020-07-27T02:57:17.000Z",
+    "Followship": {
+      "followerId": 2,
+      "followingId": 3,
+      "createdAt": "2020-07-27T02:57:17.000Z",
+      "updatedAt": "2020-07-27T02:57:17.000Z"
+    },
+    "followingId": 3,
+    "isFollowing": true
+  },
+  {
+    "id": 4,
+    "email": "user2@example.com",
+    "password": "$2a$10$C6aCkCwfleC5Juol34WVruRiBOrfPQxFhENGUetcfA77RadulHiw6",
+    "name": "Mariane Bergnaum",
+    "avatar": null,
+    "introduction": null,
+    "role": "user",
+    "account": "user2",
+    "cover": null,
+    "createdAt": "2020-07-27T02:57:17.000Z",
+    "updatedAt": "2020-07-27T02:57:17.000Z",
+    "Followship": {
+      "followerId": 2,
+      "followingId": 4,
+      "createdAt": "2020-07-27T02:57:17.000Z",
+      "updatedAt": "2020-07-27T02:57:17.000Z"
+    },
+    "followingId": 4,
+    "isFollowing": true
+  }
+]
+};
 // 路由 /api/users/:userId/followers
-//const followers = {};
+const followers = {
+  data: [
+  {
+    "id": 1,
+    "email": "root@example.com",
+    "password": "$2a$10$edPPNrsIgsw8BYcOOAVqeufUfiRbrDtbAE4FZEkZTSaPr9fGv6/BW",
+    "name": "root",
+    "avatar": null,
+    "introduction": null,
+    "role": "admin",
+    "account": "root",
+    "cover": null,
+    "createdAt": "2020-07-27T02:57:17.000Z",
+    "updatedAt": "2020-07-27T02:57:17.000Z",
+    "Followship": {
+      "followerId": 1,
+      "followingId": 2,
+      "createdAt": "2020-07-27T02:57:17.000Z",
+      "updatedAt": "2020-07-27T02:57:17.000Z"
+    },
+    "followerId": 1,
+    "isFollowing": false
+  },
+  {
+    "id": 3,
+    "email": "user1@example.com",
+    "password": "$2a$10$gf/fJqnGa/PykZ1.L7tKoelGMYPa5lYeqIYf7QJKivtwhOJrWA1u2",
+    "name": "Gerda Tillman",
+    "avatar": null,
+    "introduction": null,
+    "role": "user",
+    "account": "user1",
+    "cover": null,
+    "createdAt": "2020-07-27T02:57:17.000Z",
+    "updatedAt": "2020-07-27T02:57:17.000Z",
+    "Followship": {
+      "followerId": 3,
+      "followingId": 2,
+      "createdAt": "2020-07-27T02:57:17.000Z",
+      "updatedAt": "2020-07-27T02:57:17.000Z"
+    },
+    "followerId": 3,
+    "isFollowing": true
+  }
+]
+};
+// test用, 之後刪除↑ //
 export default {
   name: "UserHeader",
   data() {
@@ -172,6 +264,8 @@ export default {
         isAdmin: false,
       },
       isAuthenticated: false,
+      followings: '',
+      followers: '',
     };
   },
   created() {
@@ -187,8 +281,15 @@ export default {
       this.isAuthenticated = dummyUser.isAuthenticated;
       console.log(this.currentUser.data[0]);
     },
+    // test用, 之後刪除↓ TODO: 要改成用token取資料//
     // 模仿api取資料
-    dataFix() {},
+    dataFix() {
+      const followingsCount = Number(followings.data.length)
+      const followersCount = Number(followers.data.length)
+      this.followings = followingsCount
+      this.followers = followersCount
+    },
+    // test用, 之後刪除↑ //
   },
 };
 </script>

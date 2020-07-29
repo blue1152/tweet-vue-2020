@@ -26,6 +26,11 @@ const routes = [
     component: User, // 使用者個人頁
   },
   {
+    path: "/user/",
+    name: "user",
+    component: User, // 使用者個人頁
+  },
+  {
     path: "/login",
     name: "log-in",
     component: Login, // 使用者登入頁

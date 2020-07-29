@@ -8,10 +8,31 @@
         <UserHeader :account="account" />
       </div>
       <hr />
-      <div class="row user-tabs">
-        <div class="col-md-4" @click="showComments ()">推文</div>
-        <div class="col-md-4" @click="showReplies ()">推文與回覆</div>
-        <div class="col-md-4" @click="showLikes ()">喜歡的內容</div>
+      <div id="user-tabs">
+        <div class="user-tabs-link">
+          <router-link
+            to="/restaurants"
+            class="tab-links"
+          >
+        推文
+          </router-link>
+        </div>
+        <div class="user-tabs-link">
+          <router-link
+            to="/restaurants"
+            class="tab-links"
+          >
+          推文與回覆
+          </router-link>
+        </div>
+        <div class="user-tabs-link">
+          <router-link
+            to="/restaurants"
+            class="tab-links"
+          >
+          喜歡的內容
+          </router-link>
+        </div>
       </div>
       <UserPost :account="account" />
       <UserReply :reply="reply" />
@@ -227,17 +248,18 @@ export default {
       vm.account = dummyData;
       vm.reply = replies.reply;
     },
-    showComments() {
-      return;
-    },
-    showReplies() {
-      return;
-    },
   },
 };
 </script>
 <style lang="scss">
 // 版面配置
+$orange: #ff6600;
+$main-black: #000;
+$text-black: #1c1c1c;
+$grey: #9197a3;
+$text-grey: #657786;
+$background-grey: #f5f8fa;
+$main-grey: #e6ecf0;
 #user {
   display: grid;
   grid-template-columns: 378px 600px 1fr;
@@ -250,6 +272,17 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-.user-tabs {
+#user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-tabs-link {
+  padding: 5px 10px 5px 0;
+}
+.tab-links {
+  color: #333;
+}
+.tab-links:hover {
+  color: $orange;
 }
 </style>

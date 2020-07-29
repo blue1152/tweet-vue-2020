@@ -91,7 +91,7 @@ export default {
           } else {
             // 成功
             localStorage.setItem("token", data.token); // 存入token
-            this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex
+            this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex (store/index.js)
             this.$router.push("/tweets"); // 登入成功後轉址
           }
         })
@@ -104,7 +104,8 @@ export default {
             title: "請確認您輸入了正確的帳號密碼",
           });
           console.log("error", error);
-        }); */
+        }); 
+      */
 
       // TODO: 即時檢核：如發現 token 被修改或無效，則將頁面重新導回登入頁。
       // 記住帳密：讓已經登入過的使用者可以直接進入餐廳首頁而不用重新輸入帳號密碼。

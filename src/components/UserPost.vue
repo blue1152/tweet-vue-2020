@@ -1,5 +1,5 @@
 <template>
-  <div id="userpost" style>
+  <div id="userpost">
     <div class="user-tweet">
       <div class="tweet-body" v-for="item in data" :key="item.id">
         <div class="user-photo"></div>
@@ -36,7 +36,7 @@ export default {
     this.dataFix();
   },
   methods: {
-    // 模仿api取資料
+        // 模仿api取資料 TODO: 確認最終API資料格式
     dataFix() {
       const vm = this;
       const dataTweets = vm.account.user.Tweets;
@@ -55,6 +55,8 @@ export default {
       //console.log(reformattedArray);
       return (vm.data = reformattedArray);
     },
+  },
+  computed: {
   },
 };
 </script>

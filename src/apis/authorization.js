@@ -8,5 +8,12 @@ export default {
       email,
       password
     })
+  },
+  userData({ email, password }) {
+    // 這裡 return 的會是一個 Promise
+    return apiHelper.post('/login', {
+      email,
+      password
+    })
   }
 }
