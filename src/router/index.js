@@ -5,6 +5,7 @@ import Tweets from "../views/Tweets.vue";
 import User from "../views/User.vue";
 import Login from "../views/Login.vue";
 import Admin from "../views/Admin.vue";
+import Regist from "../views/Regist.vue";
 import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
@@ -26,11 +27,6 @@ const routes = [
     component: User, // 使用者個人頁
   },
   {
-    path: "/user/",
-    name: "user",
-    component: User, // 使用者個人頁
-  },
-  {
     path: "/login",
     name: "log-in",
     component: Login, // 使用者登入頁
@@ -43,7 +39,22 @@ const routes = [
   {
     path: "/regist",
     name: "regist",
-    component: () => import("../views/Regist.vue"), // 使用者註冊
+    component: Regist, // 使用者註冊
+  },
+  {
+    path: "/tweets/user/userpost",
+    name: "userpost",
+    component: () => import("../components/UserPost.vue"), // 使用者自己的推文
+  },
+  {
+    path: "/tweets/user/userreply",
+    name: "userreply",
+    component: () => import("../components/UserReply.vue"), // 使用者回覆
+  },
+  {
+    path: "/tweets/user/userlikes",
+    name: "userlikes",
+    component: () => import("../components/UserLikes.vue"), // 使用者喜愛的推文
   },
   {
     path: "/tweets/user/setting",

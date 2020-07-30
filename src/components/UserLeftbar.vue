@@ -6,22 +6,22 @@
     <div class="nav-bar">
       <!-- 使用者本人 -->
       <ul v-if="currentUser.isUser">
-        <li @click="callAjax()">
+        <li>
           <img :src="homeImg" alt="index" />首頁
         </li>
-        <li @click="callAjax()">
+        <li>
           <img :src="userImg" alt="user" />個人資料
         </li>
-        <li @click="callAjax()">
+        <li>
           <img :src="settingImg" alt="setting" />設定
         </li>
       </ul>
       <!-- admin -->
       <ul v-if="currentUser.isAdmin">
-        <li @click="callAjax()">
+        <li>
           <img :src="homeImg" alt="all-tweet-list" />推文清單
         </li>
-        <li @click="callAjax()">
+        <li>
           <img :src="userImg" alt="all-user-list" />使用者列表
         </li>
       </ul>
@@ -47,6 +47,7 @@ const dummyUser = {
 };
 // test用, 之後刪除↑ //
 //import { mapState } from 'vuex'
+//import tweetAPI from './../apis/tweets'
 export default {
   name: "leftbar-wrapper",
   data() {
@@ -70,8 +71,20 @@ export default {
   // test用, 之後刪除↓ //
   created() {
     this.fetchUser();
+    //this.fetchTweets(params);
   },
+  // test用, 之後刪除↑ //
+  /*
+  beforeRouteUpdate (to, from, next) {
+    console.log('to', to)
+    console.log('from', from)
+    const { page } = to.query
+    this.fetchTweets(params);
+    next()
+  },
+  */
   methods: {
+    // test用, 之後刪除↓ //
     fetchUser() {
       this.currentUser = {
         ...this.currentUser,
@@ -79,8 +92,26 @@ export default {
       };
       this.isAuthenticated = dummyUser.isAuthenticated;
     },
+    // test用, 之後刪除↑ //
   },
-  // test用, 之後刪除↑ //
+  // TODO: 狀態保存
+  /*fetchTweets(params) {
+    tweetAPI
+      .getRightContent(params)
+      .then((response) => {
+        console.log("response", response);
+        const { data } = response;
+        // 未成功
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        } else {
+        // 成功
+        console.log(data)
+      })
+      .catch((error) => {
+         console.log("error", error);
+      }); 
+  },
   /*
   // computed 會將結果暫存起來，當參考到的資料改變時，computed 才會重新計算。
   computed: {

@@ -13,6 +13,8 @@
           name="account"
           type="text"
           class="form-control"
+          placeholder="Account"
+          autocomplete="username"
           required
           autofocus
         />
@@ -46,7 +48,7 @@
   </div>
 </template>
 <script>
-//import authorizationAPI from "./../apis/authorization";
+import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 export default {
   data() {
@@ -58,6 +60,7 @@ export default {
   methods: {
     handleSubmit() {
       // test用, 之後刪除↓ //
+      /*
       const data = JSON.stringify({
         user: {
           account: this.account,
@@ -67,8 +70,8 @@ export default {
 
       this.$router.push("/tweets"); // 登入成功後轉址
       this.$store.commit("setCurrentUser", data.user);
+      */
       // test用, 之後刪除↑ //
-
       if (!this.account || !this.password) {
         Toast.fire({
           icon: "warning",
@@ -77,20 +80,22 @@ export default {
         return;
       }
 
-      /*     authorizationAPI
+      authorizationAPI
         .logIn({
-          email: this.email,
+          account: this.account,
           password: this.password,
         })
         .then((response) => {
-          console.log("response", response);
-          const { data } = response;
+          //console.log("response", response);
+          const data = response.data;
+          console.log(data);
           // 未成功
-          if (data.status !== "success") {
+          if (response.data.status !== "success") {
             throw new Error(data.message);
           } else {
             // 成功
-            localStorage.setItem("token", data.token); // 存入token
+            const token = String(data.token)
+            localStorage.setItem("token", token); // 存入token
             this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex (store/index.js)
             this.$router.push("/tweets"); // 登入成功後轉址
           }
@@ -105,7 +110,6 @@ export default {
           });
           console.log("error", error);
         }); 
-      */
 
       // TODO: 即時檢核：如發現 token 被修改或無效，則將頁面重新導回登入頁。
       // 記住帳密：讓已經登入過的使用者可以直接進入餐廳首頁而不用重新輸入帳號密碼。

@@ -290,6 +290,26 @@ export default {
       this.followers = followersCount
     },
     // test用, 之後刪除↑ //
+    fetchTweets() {
+     tweetAPI
+      .getMainContent()
+      .then((response) => {
+        console.log("response", response);
+        const dataArray  = response.data;
+        // 未成功
+        if (response.status != "200" || response.data.length == 0) {
+          throw new Error(response.statusText);
+        } else {
+        // 成功
+        console.log(response.statusText)
+        console.log(dataArray)
+        this.data = dataArray
+        }
+      })
+      .catch((error) => {
+         console.log("error", error);
+      }); 
+    }
   },
 };
 </script>

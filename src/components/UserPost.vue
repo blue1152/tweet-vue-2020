@@ -1,5 +1,9 @@
 <template>
   <div id="userpost">
+    <div>
+      <UserTabs />
+    </div>
+    <hr />
     <div class="user-tweet">
       <div class="tweet-body" v-for="item in data" :key="item.id">
         <div class="user-photo"></div>
@@ -19,8 +23,12 @@
   </div>
 </template>
 <script>
+import UserTabs from "../components/UserTabs";
 export default {
   name: "userpost",
+  components: {
+    UserTabs,
+  },
   data() {
     return {
       data: [],
@@ -28,7 +36,7 @@ export default {
   },
   props: {
     account: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
@@ -55,8 +63,6 @@ export default {
       //console.log(reformattedArray);
       return (vm.data = reformattedArray);
     },
-  },
-  computed: {
   },
 };
 </script>

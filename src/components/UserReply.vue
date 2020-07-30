@@ -1,5 +1,8 @@
 <template>
   <div id="userreply" style="display: none;">
+    <div>
+      <UserTabs />
+    </div>
     <div class="user-tweet">
       <div class="tweet-body" v-for="item in data" :key="item.id">
         <div class="user-photo"></div>
@@ -19,8 +22,12 @@
   </div>
 </template>
 <script>
+import UserTabs from "../components/UserTabs";
 export default {
   name: "userreply",
+  components: {
+    UserTabs,
+  },
   data() {
     return {
       data: [],

@@ -1,35 +1,25 @@
 <template>
-        <div id="user-tabs">
-        <div class="user-tabs-link">
-          <router-link
-            to="/restaurants"
-            class="tab-links"
-          >
-        推文
-          </router-link>
-        </div>
-        <div class="user-tabs-link">
-          <router-link
-            to="/restaurants"
-            class="tab-links"
-          >
-          推文與回覆
-          </router-link>
-        </div>
-        <div class="user-tabs-link">
-          <router-link
-            to="/restaurants"
-            class="tab-links"
-          >
-          喜歡的內容
-          </router-link>
-        </div>
-      </div>
-      
+  <div id="user-tabs">
+    <div class="user-tabs-link">
+      推文
+    </div>
+    <div class="user-tabs-link">
+      推文與回覆
+    </div>
+    <div class="user-tabs-link">
+      喜歡的內容
+    </div>
+  </div>
 </template>
 <script>
 export default {
   name: 'user-tabs',
+  methods: {
+    fetchUser() {}
+  },
+  mounted() {
+
+  }
 }
 </script>
 <style lang="scss">
