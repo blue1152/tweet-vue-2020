@@ -34,7 +34,7 @@
         />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">登入</button>
+      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit" :disabled="isProcessing">登入</button>
 
       <div class="text-center mb-3">
         <p>
@@ -55,23 +55,11 @@ export default {
     return {
       account: "",
       password: "",
+      isProcessing: false,
     };
   },
   methods: {
     handleSubmit() {
-      // test用, 之後刪除↓ //
-      /*
-      const data = JSON.stringify({
-        user: {
-          account: this.account,
-          password: this.password,
-        },
-      });
-
-      this.$router.push("/tweets"); // 登入成功後轉址
-      this.$store.commit("setCurrentUser", data.user);
-      */
-      // test用, 之後刪除↑ //
       if (!this.account || !this.password) {
         Toast.fire({
           icon: "warning",
@@ -79,6 +67,8 @@ export default {
         });
         return;
       }
+
+      this.isProcessing = true
 
       authorizationAPI
         .logIn({
@@ -88,21 +78,23 @@ export default {
         .then((response) => {
           //console.log("response", response);
           const data = response.data;
-          console.log(data);
+          //console.log(data);
           // 未成功
           if (response.data.status !== "success") {
             throw new Error(data.message);
           } else {
             // 成功
             const token = String(data.token)
+            const userId = String(data.user.id)
             localStorage.setItem("token", token); // 存入token
+            localStorage.setItem("id", userId); // 存入使用者id
             this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex (store/index.js)
             this.$router.push("/tweets"); // 登入成功後轉址
           }
         })
         .catch((error) => {
-          // 將密碼欄位清空
-          this.password = "";
+          this.password = ""; // 清空密碼
+          this.isProcessing = false; // 還原submit btn
           // 顯示錯誤提示
           Toast.fire({
             icon: "warning",
@@ -112,7 +104,6 @@ export default {
         }); 
 
       // TODO: 即時檢核：如發現 token 被修改或無效，則將頁面重新導回登入頁。
-      // 記住帳密：讓已經登入過的使用者可以直接進入餐廳首頁而不用重新輸入帳號密碼。
     },
   },
 };

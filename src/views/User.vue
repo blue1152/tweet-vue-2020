@@ -43,8 +43,9 @@ export default {
     };
   },
   created() {
+    // 使用者 /users/:userId/
     // 使用者自己的推文 /users/:userId/tweets
-    // 使用者回覆過的貼文 /users/:userId/replied-tweets
+    // 使用者回覆過的貼文 /users/:userId/replied_tweets
     // 使用者按讚的貼文 /users/:userId/likes
     let userId = '2'
     let page = 'tweets'

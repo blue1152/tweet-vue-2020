@@ -7,6 +7,7 @@ import Login from "../views/Login.vue";
 import Admin from "../views/Admin.vue";
 import Regist from "../views/Regist.vue";
 import NotFound from "../views/NotFound.vue";
+import store from './../store'
 
 Vue.use(VueRouter);
 
@@ -97,5 +98,13 @@ const router = new VueRouter({
   linkExactActiveClass: "active",
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  //console.log('to', to)
+  //console.log('from', from)
+  // 使用 dispatch 呼叫 Vuex 內的 actions
+  store.dispatch('fetchCurrentUser')
+  next()
+})
 
 export default router;

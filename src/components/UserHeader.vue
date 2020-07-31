@@ -19,7 +19,7 @@
         </div>
       </div>
       <div align="right" class="btn-wrapper">
-        <button type="button" class="setting-btn">編輯個人資料</button>
+        <button type="button" class="setting-btn" data-toggle="modal" data-target="#userEdit">編輯個人資料</button>
       </div>
       <div class="user-name">
         <div>{{ currentUser.data[0].user.name }}</div>
@@ -34,6 +34,42 @@
         <!-- /api/users/:userId/followers -->
       </div>
     </section>
+    <!-- Modal userEdit-->
+<div class="modal fade" id="userEdit" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content user-edit-modal flex-column">
+      <form>
+        <div class="modal-header col-12 d-flex align-items-center">
+          <div class="left-wrapper d-flex  align-items-center">
+            <a href="" data-dismiss="modal" aria-label="Close"><img src="https://i.imgur.com/wO030c5.png"></a>
+            <div class="user-modal-title">編輯個人資料</div>
+          </div>
+          <div class="right-wrapper">
+            <button type="submit" class="post-btn">儲存</button>
+          </div>
+        </div>
+        <div class="modal-body col-12 m-0 p-0" style="box-sizing: border-box;">
+          <div class="cover-wrapper">
+            <img :src="coverImg" alt="cover" class="cover-edit">
+          </div>
+          <div class="photo-wrapper">
+            <img :src="profileImg" alt="profile" class="photo-edit rounded-circle">
+          </div>
+          <div class="d-flex flex-column input-wrapper mt-3 mb-5">
+            <input type="text" name="text-name" class="text-name mx-auto" maxlength=50>
+            <label for="text-name" class="text-name-label mx-auto">名稱</label>
+            <small class="text-counter text-right mr-4">0/50</small>
+          </div>
+          <div class="d-flex flex-column input-wrapper mb-5">
+            <input type="text" name="text-description" class="text-description mx-auto" maxlength=160>
+            <label for="text-description" class="text-description-label mx-auto">自我介紹</label>
+            <small class="text-counter text-right mr-4">0/160</small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
   </nav>
 </template>
 <script>
@@ -156,104 +192,24 @@ const dummyUser = {
   isAuthenticated: true,
 };
 // 路由 /api/users/:userId/followings
-const followings = {
-  data: [
-  {
-    "id": 3,
-    "email": "user1@example.com",
-    "password": "$2a$10$gf/fJqnGa/PykZ1.L7tKoelGMYPa5lYeqIYf7QJKivtwhOJrWA1u2",
-    "name": "Gerda Tillman",
-    "avatar": null,
-    "introduction": null,
-    "role": "user",
-    "account": "user1",
-    "cover": null,
-    "createdAt": "2020-07-27T02:57:17.000Z",
-    "updatedAt": "2020-07-27T02:57:17.000Z",
-    "Followship": {
-      "followerId": 2,
-      "followingId": 3,
-      "createdAt": "2020-07-27T02:57:17.000Z",
-      "updatedAt": "2020-07-27T02:57:17.000Z"
-    },
-    "followingId": 3,
-    "isFollowing": true
-  },
-  {
-    "id": 4,
-    "email": "user2@example.com",
-    "password": "$2a$10$C6aCkCwfleC5Juol34WVruRiBOrfPQxFhENGUetcfA77RadulHiw6",
-    "name": "Mariane Bergnaum",
-    "avatar": null,
-    "introduction": null,
-    "role": "user",
-    "account": "user2",
-    "cover": null,
-    "createdAt": "2020-07-27T02:57:17.000Z",
-    "updatedAt": "2020-07-27T02:57:17.000Z",
-    "Followship": {
-      "followerId": 2,
-      "followingId": 4,
-      "createdAt": "2020-07-27T02:57:17.000Z",
-      "updatedAt": "2020-07-27T02:57:17.000Z"
-    },
-    "followingId": 4,
-    "isFollowing": true
-  }
-]
-};
 // 路由 /api/users/:userId/followers
-const followers = {
-  data: [
-  {
-    "id": 1,
-    "email": "root@example.com",
-    "password": "$2a$10$edPPNrsIgsw8BYcOOAVqeufUfiRbrDtbAE4FZEkZTSaPr9fGv6/BW",
-    "name": "root",
-    "avatar": null,
-    "introduction": null,
-    "role": "admin",
-    "account": "root",
-    "cover": null,
-    "createdAt": "2020-07-27T02:57:17.000Z",
-    "updatedAt": "2020-07-27T02:57:17.000Z",
-    "Followship": {
-      "followerId": 1,
-      "followingId": 2,
-      "createdAt": "2020-07-27T02:57:17.000Z",
-      "updatedAt": "2020-07-27T02:57:17.000Z"
-    },
-    "followerId": 1,
-    "isFollowing": false
-  },
-  {
-    "id": 3,
-    "email": "user1@example.com",
-    "password": "$2a$10$gf/fJqnGa/PykZ1.L7tKoelGMYPa5lYeqIYf7QJKivtwhOJrWA1u2",
-    "name": "Gerda Tillman",
-    "avatar": null,
-    "introduction": null,
-    "role": "user",
-    "account": "user1",
-    "cover": null,
-    "createdAt": "2020-07-27T02:57:17.000Z",
-    "updatedAt": "2020-07-27T02:57:17.000Z",
-    "Followship": {
-      "followerId": 3,
-      "followingId": 2,
-      "createdAt": "2020-07-27T02:57:17.000Z",
-      "updatedAt": "2020-07-27T02:57:17.000Z"
-    },
-    "followerId": 3,
-    "isFollowing": true
-  }
-]
-};
 // test用, 之後刪除↑ //
+import { Toast } from "./../utils/helpers";
+import tweetAPI from './../apis/tweets';
 export default {
   name: "UserHeader",
   data() {
     return {
+      userData: {
+        account: "",
+        name: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        introduction: "",
+        avatar: "",
+        cover: ""
+      },
       arrowImg: "./black_arrow.svg",
       profileImg: "./photo_big.svg",
       currentUser: {
@@ -281,15 +237,50 @@ export default {
       this.isAuthenticated = dummyUser.isAuthenticated;
       console.log(this.currentUser.data[0]);
     },
-    // test用, 之後刪除↓ TODO: 要改成用token取資料//
-    // 模仿api取資料
-    dataFix() {
-      const followingsCount = Number(followings.data.length)
-      const followersCount = Number(followers.data.length)
-      this.followings = followingsCount
-      this.followers = followersCount
+    handleSubmitUser() {
+      if (!this.description) {
+        Toast.fire({
+          icon: "warning",
+          title: "記得要寫東西再送出喔~",
+        });
+        return;
+      }
+      tweetAPI
+        .updateUser({
+          userId: localStorage.getItem("id"),
+          account: this.userData.account,
+          name: this.userData.name,
+          email: this.userData.email,
+          password: this.userData.password,
+          passwordConfirm: this.userData.passwordConfirm,
+          introduction: this.userData.introduction,
+          avatar: this.userData.avatar,
+          cover: this.userData.cover,
+        })
+        .then((response) => {
+          console.log("response", response);
+          const data = response.data;
+          //console.log(data);
+          // 未成功
+          if (data.status !== "success") {
+            throw new Error(data.message);
+          } else {
+            // 成功
+            const page = '';
+            this.fetchTweets(page)
+            this.description = "有什麼新鮮事？"; // 還原
+          }
+        })
+        .catch((error) => {
+          this.description = ""; // 清空
+          // 顯示錯誤提示
+          Toast.fire({
+            icon: "warning",
+            title: "字數過長",
+          });
+          console.log("error", error);
+        }); 
     },
-    // test用, 之後刪除↑ //
     fetchTweets() {
      tweetAPI
       .getMainContent()

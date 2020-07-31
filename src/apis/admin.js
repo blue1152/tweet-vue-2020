@@ -1,10 +1,12 @@
 import { apiHelper } from './../utils/helpers'
-const getToken = () => localStorage.getItem('adminToken')
 
 export default {
-  getAdmin(page) {
+  getAdmin (page) {
     return apiHelper.get(`/admin/${page}`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
+  removeAdminPost (postId) {
+    return apiHelper.get(`/admin/tweets/${postId}`, {
     })
   }
 }

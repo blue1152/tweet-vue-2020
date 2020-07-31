@@ -1,32 +1,34 @@
 <template>
 <div id="allposts">
-  <div class="post-wrapper">
+  <div class="post-wrapper" v-for="item in allpost" :key="item.id">
     <div class="user-img">
       <img :src="profileImg" alt="profile" />
     </div>
-    <div class="user-tweets">
+    <div class="user-tweets" :id="item.id" @click="getRecentPost (item.id)">
       <div class="user-info-box">
-        <span class="user-name">Apple</span>
-        <span class="user-account-name">@apple</span>
-        <span class="post-time">．3小時</span>
+        <span class="user-name">{{ item.userName }}</span>
+        <span class="user-account-name">@{{ item.userAccount }}</span>
+        <span class="post-time">．{{ item.tweetCreatedAt }}</span>
       </div>
-      <div class="user-text">123</div>
+      <div class="user-text">{{ item.description }}</div>
       <div class="user-btns">
-        <span class="reply-btn">reply</span>
-        <span class="like-btn">like</span>
+        <span class="reply-btn"><img :src="messageImg" alt="reply" />{{ item.replyConut }}</span>
+        <span class="like-btn"><img :src="likeImg" alt="like" />{{ item.likeConut }}</span>
       </div>
     </div>
   </div>
-{{ data }}
 </div>
 </template>
 <script>
+import tweetAPI from './../apis/tweets';
 export default {
   name: "allposts",
   data() {
     return {
       data: [],
       profileImg: "./photo_big.svg",
+      messageImg: "./message.svg",
+      likeImg: "./like.svg",
     };
   },
   props: {
@@ -35,31 +37,31 @@ export default {
       required: true,
     },
   },
-  created() {
-    //this.dataFix();
-    this.data = this.allpost
-    console.log(this.data)
-  },
   methods: {
-    // 模仿api取資料 TODO: 確認最終API資料格式
-    dataFix() {
-      const vm = this;
-      const dataTweets = vm.account.user.Tweets;
-      const dataName = vm.account.user.name;
-      const dataAccount = vm.account.account;
-      const reformattedArray = dataTweets.map(function (obj) {
-        const rObj = {};
-        rObj.name = dataName;
-        rObj.account = dataAccount;
-        rObj.id = obj.id;
-        rObj.description = obj.description;
-        rObj.createdAt = obj.createdAt;
-        rObj.updatedAt = obj.updatedAt;
-        return rObj;
-      });
-      //console.log(reformattedArray);
-      return (vm.data = reformattedArray);
+    getRecentPost (tweetId) {
+      this.fetchTweets(tweetId)
     },
+    fetchTweets(page) {
+    tweetAPI
+      .getMainContent(page)
+      .then((response) => {
+        const dataArray  = response.data;
+        // 未成功
+        if (response.status != "200" || response.data.length == 0) {
+          throw new Error(response.statusText);
+        } else {
+        // 成功
+        //console.log(response.statusText)
+        console.log(dataArray)
+        this.data = dataArray
+        }
+      })
+      .catch((error) => {
+         console.log("error", error);
+      }); 
+    }
+  },
+  created() {
   },
 };
 </script>
@@ -81,4 +83,37 @@ export default {
 .reply-btn, .like-btn {
   padding-right: 10px;
 }
+.user-name {
+font-style: normal;
+font-weight: bold;
+font-size: 15px;
+line-height: 22px;
+color: #1C1C1C;
+padding-right: 10px;
+}
+.user-account-name, .post-time {
+  font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 22px;
+color: #657786;
+}
+.user-text {
+  font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 22px;
+color: #1C1C1C;
+}
+.reply-btn, .like-btn {
+font-style: normal;
+font-weight: 500;
+font-size: 13px;
+line-height: 13px;
+color: #657786;
+img {
+  padding-right: 10px;
+}
+}
+
 </style>
