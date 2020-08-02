@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <main role="main" class="mt-5 bg-white">
-      <router-view />
-    </main>
+    <router-view />
   </div>
 </template>
 <script>
@@ -15,5 +13,4 @@ export default {
 <style>
 @import "../public/index.css";
 </style>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
