@@ -2,12 +2,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Tweets from "../views/Tweets.vue";
+import TargetTweet from "../views/TargetTweet.vue";
 import User from "../views/User.vue";
 import Login from "../views/Login.vue";
 import Admin from "../views/Admin.vue";
 import Regist from "../views/Regist.vue";
 import NotFound from "../views/NotFound.vue";
-import store from './../store'
+import store from "./../store";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/tweets",
     name: "tweets",
     component: Tweets, // 主頁
+  },
+  {
+    path: "/tweets/targettweet",
+    name: "targettweet",
+    component: TargetTweet, // 特定推文頁
   },
   {
     path: "/user",
@@ -60,7 +66,7 @@ const routes = [
   {
     path: "/tweets/user/setting",
     name: "setting",
-    component: () => import("../views/Setting.vue"), // 使用者設定
+    component: () => import("../components/Setting.vue"), // 使用者設定
   },
   {
     path: "/tweets/user/followers",
@@ -103,8 +109,8 @@ router.beforeEach((to, from, next) => {
   //console.log('to', to)
   //console.log('from', from)
   // 使用 dispatch 呼叫 Vuex 內的 actions
-  store.dispatch('fetchCurrentUser')
-  next()
-})
+  store.dispatch("fetchCurrentUser");
+  next();
+});
 
 export default router;

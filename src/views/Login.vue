@@ -34,7 +34,13 @@
         />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block mb-3" type="submit" :disabled="isProcessing">登入</button>
+      <button
+        class="btn btn-lg btn-primary btn-block mb-3"
+        type="submit"
+        :disabled="isProcessing"
+      >
+        登入
+      </button>
 
       <div class="text-center mb-3">
         <p>
@@ -68,7 +74,7 @@ export default {
         return;
       }
 
-      this.isProcessing = true
+      this.isProcessing = true;
 
       authorizationAPI
         .logIn({
@@ -76,7 +82,7 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          //console.log("response", response);
+          console.log("response", response);
           const data = response.data;
           //console.log(data);
           // 未成功
@@ -84,11 +90,11 @@ export default {
             throw new Error(data.message);
           } else {
             // 成功
-            const token = String(data.token)
-            const userId = String(data.user.id)
+            const token = String(data.token);
+            const userId = String(data.user.id);
             localStorage.setItem("token", token); // 存入token
             localStorage.setItem("id", userId); // 存入使用者id
-            this.$store.commit("setCurrentUser", data.user); // 資料傳入vuex (store/index.js)
+            this.$store.commit("setCurrentUser", data.user);
             this.$router.push("/tweets"); // 登入成功後轉址
           }
         })
@@ -101,7 +107,7 @@ export default {
             title: "請確認您輸入了正確的帳號密碼",
           });
           console.log("error", error);
-        }); 
+        });
 
       // TODO: 即時檢核：如發現 token 被修改或無效，則將頁面重新導回登入頁。
     },

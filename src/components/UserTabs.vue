@@ -1,26 +1,33 @@
 <template>
   <div id="user-tabs">
     <div class="user-tabs-link">
-      推文
+      <router-link to="/user">
+        推文
+      </router-link>
     </div>
     <div class="user-tabs-link">
-      推文與回覆
+      <router-link to="/tweets/user/userreply">
+        推文與回覆
+      </router-link>
     </div>
     <div class="user-tabs-link">
-      喜歡的內容
+      <router-link to="/tweets/user/userlikes">
+        喜歡的內容
+      </router-link>
     </div>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
-  name: 'user-tabs',
+  name: "user-tabs",
   methods: {
-    fetchUser() {}
+    fetchUser() {},
   },
-  mounted() {
-
-  }
-}
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+};
 </script>
 <style lang="scss">
 // 變數設置

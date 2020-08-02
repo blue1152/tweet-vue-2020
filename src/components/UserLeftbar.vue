@@ -5,12 +5,16 @@
     </div>
     <div class="nav-bar">
       <!-- 使用者本人 -->
-      <ul v-if="UserLeftbar.user.role == 'user'">
+      <ul v-if="currentUser.role == 'user'">
         <li>
-          <img :src="homeImg" alt="index" />首頁
+          <router-link to="/tweets">
+            <img :src="homeImg" alt="index" />首頁
+          </router-link>
         </li>
         <li>
-          <img :src="userImg" alt="user" />個人資料
+          <router-link to="/user">
+            <img :src="userImg" alt="user" />個人資料
+          </router-link>
         </li>
         <li>
           <router-link to="/tweets/user/setting">
@@ -19,49 +23,62 @@
         </li>
       </ul>
       <!-- admin -->
-      <ul v-if="UserLeftbar.user.role == 'admin'">
-        <li>
-          <img :src="homeImg" alt="all-tweet-list" />推文清單
-        </li>
-        <li>
-          <img :src="userImg" alt="all-user-list" />使用者列表
-        </li>
+      <ul v-if="currentUser.role == 'admin'">
+        <li><img :src="homeImg" alt="all-tweet-list" />推文清單</li>
+        <li><img :src="userImg" alt="all-user-list" />使用者列表</li>
       </ul>
     </div>
-    <div class="post-btn" v-if="UserLeftbar.user.role == 'user'" data-toggle="modal" data-target="#tweet">推文</div>
-    <div class="log-out" @click="logout">
+    <div class="post-btn" @click="show()">推文</div>
+    <div class="log-out" v-if="currentUser.role == 'user'" @click="logout">
       <img :src="logoutImg" alt="setting" />登出
     </div>
-<!-- Modal tweet-->
-<div class="modal fade" id="tweet" tabindex="-1" role="dialog" aria-labelledby="tweetModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form class="modal-content">
-      <div class="modal-header col-12">
-        <a href="" data-dismiss="modal" aria-label="Close"><img src="https://i.imgur.com/wO030c5.png"></a>
+    <!-- Modal tweet-->
+    <modal name="tweet-modal">
+      <div class="modal-dialog" role="document">
+        <form class="modal-content" @submit.prevent.stop="handleSubmit()">
+          <div class="modal-header col-12">
+            <a href data-dismiss="modal" aria-label="Close">
+              <img :src="UserLeftbar.userCover" />
+            </a>
+          </div>
+          <div class="modal-body col-12 d-flex">
+            <div class="photo-wrapper">
+              <img
+                :src="UserLeftbar.userAvatar"
+                alt
+                class="photo rounded-circle"
+              />
+            </div>
+            <textarea
+              cols="50"
+              rows="5"
+              v-model="description"
+              class="tweet-content ml-3"
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="post-btn" @click="hide()">
+              推文
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="modal-body col-12 d-flex">
-        <div class="photo-wrapper">
-          <img src="https://i.imgur.com/9UcUJdS.jpg" alt="" class="photo rounded-circle">
-        </div>
-        <textarea cols="50" rows="5" v-model="description" class="tweet-content ml-3">
-        </textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="post-btn" @submit.prevent.stop="handleSubmit()">推文</button>
-      </div>
-    </form>
-  </div>
-</div>
+    </modal>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import Vue from "vue";
+import VModal from "vue-js-modal";
+import { mapState } from "vuex";
 import { Toast } from "./../utils/helpers";
-import tweetAPI from './../apis/tweets';
+import tweetAPI from "./../apis/tweets";
+import userAPI from "./../apis/users";
+Vue.use(VModal);
 export default {
   name: "leftbar-wrapper",
   data() {
     return {
+      data: [],
       description: "有什麼新鮮事？",
       profileImg: "./photo_big.svg",
       coverImg: "./cover.svg",
@@ -79,10 +96,18 @@ export default {
     },
   },
   methods: {
-    logout () {
-      this.$store.commit('revokeAuthentication')
-      this.$router.push('/login')
+    show() {
+      this.$modal.show("tweet-modal");
     },
+    hide() {
+      this.$modal.hide("tweet-modal");
+    },
+    // 登出功能
+    logout() {
+      this.$store.commit("revokeAuthentication");
+      this.$router.push("/login");
+    },
+    // 送出tweet功能
     handleSubmit() {
       if (!this.description) {
         Toast.fire({
@@ -105,29 +130,62 @@ export default {
             throw new Error(data.message);
           } else {
             // 成功
-            const page = '';
-            this.fetchTweets(page)
-            this.description = "有什麼新鮮事？"; // 還原
+            this.description = "有什麼新鮮事？";
+            this.$router.go(0);
           }
         })
         .catch((error) => {
           this.description = ""; // 清空
-          // 顯示錯誤提示
-          Toast.fire({
-            icon: "warning",
-            title: "字數過長",
-          });
           console.log("error", error);
-        }); 
+        });
+    },
+    fetchUser(userId) {
+      userAPI
+        .getCurrentUser(userId)
+        .then((response) => {
+          //console.log("response", response);
+          const dataArray = response.data;
+          // 未成功
+          if (response.status != "200" || response.data.length == 0) {
+            throw new Error(response.statusText);
+          } else {
+            // 成功
+            //console.log(response.statusText)
+            console.colg(dataArray);
+            this.userData = dataArray;
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    fetchTweets(page) {
+      tweetAPI
+        .getMainContent(page)
+        .then((response) => {
+          const dataArray = response.data;
+          // 未成功
+          if (response.status != "200" || response.data.length == 0) {
+            throw new Error(response.statusText);
+          } else {
+            // 成功
+            //console.log(response.statusText)
+            //console.log(dataArray);
+            this.data = dataArray;
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     },
   },
-  // computed 會將結果暫存起來，當參考到的資料改變時，computed 才會重新計算。
+  // 取得user狀態
   computed: {
-    ...mapState(['currentUser', 'isAuthenticated'])
+    ...mapState(["currentUser"]),
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 // 變數設置
 $orange: #ff6600;
 $main-black: #000;
@@ -184,6 +242,11 @@ a {
   text-align: center;
   cursor: pointer;
 }
+.post-btn:hover {
+  background: #fff;
+  color: $orange;
+  border: 1px solid $orange;
+}
 .log-out {
   position: absolute;
   bottom: 20px;
@@ -202,7 +265,7 @@ a {
   font-weight: bold;
   font-size: 19px;
   line-height: 28px;
-  color: #1C1C1C;
+  color: #1c1c1c;
   padding: 13px 0;
   padding-left: 40px;
 }
@@ -211,7 +274,8 @@ a {
   border: none;
 }
 
-.modal-footer, .btn {
+.modal-footer,
+.btn {
   border: none;
 }
 
@@ -248,22 +312,24 @@ a {
   color: #657786;
 }
 
-.dot, .createdAt {
-color: #657786;
+.dot,
+.createdAt {
+  color: #657786;
 }
 
 .taged-user {
-  color: #FF6600;
+  color: #ff6600;
 }
 
 .input-wrapper {
   position: relative;
 }
 
-.text-name, .text-description {
+.text-name,
+.text-description {
   border: none;
   border-bottom: 2px solid #657786;
-  background: #F5F8FA;
+  background: #f5f8fa;
 }
 
 .text-name {

@@ -1,30 +1,43 @@
-import { apiHelper } from './../utils/helpers'
+import { apiHelper } from "./../utils/helpers";
 
 export default {
-  getTweets (userId, page) {
-    return apiHelper.get(`/users/${userId}/${page}`, {
-    })
+  editLikes(postId, like) {
+    return apiHelper.post(`/tweets/${postId}/${like}`, {});
   },
-  getMainContent (page) {
-    return apiHelper.get(`/tweets/${page}`, {
-    })
+  getMainContent(page) {
+    return apiHelper.get(`/tweets/${page}`, {});
   },
-  addLikes (postId) {
-    return apiHelper.get(`/tweets/${postId}/like`, {
-    })
+  getTarget(postId) {
+    return apiHelper.get(`/tweets/${postId}`, {});
   },
-  removeLikes (postId) {
-    return apiHelper.get(`/tweets/${postId}/unlike`, {
-    })
+  addLikes(postId) {
+    return apiHelper.get(`/tweets/${postId}/like`, {});
   },
-  createTweets ({ userId, description }) {
-    return apiHelper.post('/tweets', {
+  removeLikes(postId) {
+    return apiHelper.get(`/tweets/${postId}/unlike`, {});
+  },
+  createTweets({ userId, description }) {
+    return apiHelper.post("/tweets", {
       userId,
-      description
-    })
+      description,
+    });
   },
-  updateUser ({ userId, account, name, email, password, passwordConfirm, introduction, avatar, cover }) {
-    return apiHelper.put(`/tweets/users/${userId}`, {
+  // 使用者相關路由
+  getTweets(userId, page) {
+    return apiHelper.get(`/users/${userId}/${page}`, {});
+  },
+  updateUser({
+    userId,
+    account,
+    name,
+    email,
+    password,
+    passwordConfirm,
+    introduction,
+    avatar,
+    cover,
+  }) {
+    return apiHelper.put(`/users/${userId}`, {
       userId,
       account,
       name,
@@ -33,7 +46,7 @@ export default {
       passwordConfirm,
       introduction,
       avatar,
-      cover
-    })
+      cover,
+    });
   },
-}
+};
