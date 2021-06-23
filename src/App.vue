@@ -12,8 +12,3 @@ export default {
   name: "App",
 };
 </script>
-<style>
-@import "../public/index.css";
-</style>
-<style lang="scss">
-</style>

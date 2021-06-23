@@ -1,0 +1,939 @@
+@charset "UTF-8";
+/* reset css */
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: $white;
+  font-family: $body-font-family;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.btn,
+button,
+button:focus,
+input:focus,
+textarea:focus,
+select,
+select:focus,
+a:focus {
+  outline: 0px !important;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+button[disabled] {
+  pointer-events: none;
+}
+
+input {
+  padding: 0;
+}
+
+input:required {
+  box-shadow: none;
+}
+
+input:invalid {
+  box-shadow: none;
+}
+
+/* custom style */
+/* views/Tweets.vue */
+textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+}
+.content-header {
+  max-width: 600px;
+  margin: 10px auto;
+}
+.index-line2 {
+  border-bottom: 2px solid $main-black;
+  padding: 5px 0;
+}
+.index-line {
+  border-bottom: 2px solid $orange2;
+  padding: 5px 0;
+}
+.index-title {
+  color: $text-black;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+}
+#tweets {
+  display: grid;
+  grid-template-columns: 378px 650px 1fr;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar,
+#rightbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#main-content {
+  height: 700px;
+}
+.main-tweets {
+  max-height: 450px;
+  overflow: auto;
+}
+.user-input {
+  display: flex;
+  flex-direction: column;
+}
+.user-input > button {
+  width: 92px;
+  height: 30px;
+  line-height: 30px;
+  background: $orange;
+  border-radius: 100px;
+  color: #fff;
+  text-align: center;
+}
+/* views/User.vue */
+#user {
+  display: grid;
+  grid-template-columns: 378px 600px 1fr;
+  grid-template-rows: 422px 800px;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  grid-row: 1 / 3;
+}
+#main-content {
+  grid-row: 1 / 3;
+}
+.main-container {
+  overflow: auto;
+}
+#rightbar {
+  grid-row: 1 / 3;
+}
+#user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-tabs-link {
+  padding: 5px 10px 5px 0;
+}
+.tab-links {
+  color: #333;
+}
+.tab-links:hover {
+  color: $orange;
+}
+/* views/TargetTweet.vue */
+.count {
+  span {
+    padding-right: 10px;
+  }
+}
+textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+}
+.content-header {
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    padding-right: 10px;
+  }
+}
+.tweet-line {
+  border-bottom: 1px solid $other-grey;
+  margin: 10px 0;
+}
+.index-title {
+  color: $text-black;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+}
+#targettweet {
+  display: grid;
+  grid-template-columns: 378px 650px 1fr;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar,
+#rightbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#main-content {
+  height: 700px;
+}
+.main-tweets {
+  overflow: auto;
+  margin-bottom: 30px;
+}
+.user-input {
+  display: flex;
+  flex-direction: column;
+}
+.post-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.user-input > button {
+  width: 92px;
+  height: 30px;
+  line-height: 30px;
+  background: $orange;
+  border-radius: 100px;
+  color: #fff;
+  text-align: center;
+}
+.user-tweets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user-info-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-img {
+  padding: 20px 0;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+}
+.user-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+  padding-right: 10px;
+}
+.user-account-name,
+.post-time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+.user-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 34px;
+  color: $text-black;
+}
+.reply-btn,
+.like-btn {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $text-grey;
+  padding-right: 50px;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+.others-reply {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid $other-grey;
+}
+.others-content {
+  display: flex;
+  flex-direction: column;
+}
+.others-reply-btn {
+  span > img {
+    width: 15px;
+    height: 15px;
+  }
+}
+/* components/UserTabs.vue */
+#user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-tabs-link {
+  padding: 5px 10px 5px 0;
+}
+.tab-links {
+  color: #333;
+}
+.tab-links:hover {
+  color: $orange;
+}
+/* UserReply.vue */
+#userreply {
+  display: grid;
+  grid-template-columns: 378px 600px 1fr;
+  grid-template-rows: 422px 800px;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  grid-row: 1 / 3;
+}
+#main-content {
+  grid-row: 1 / 3;
+}
+.main-container {
+  overflow: auto;
+}
+#rightbar {
+  grid-row: 1 / 3;
+}
+#user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-tabs-link {
+  padding: 5px 10px 5px 0;
+}
+.tab-links {
+  color: #333;
+}
+.tab-links:hover {
+  color: $orange;
+}
+.user-tweet {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.tweet-body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 0;
+}
+.tweet-body:nth-child(odd) {
+  background: $background-grey;
+}
+.right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+}
+.user-photo {
+  padding: 0 15px;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+.user-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+  padding-right: 10px;
+}
+.user-account-name,
+.post-time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+.user-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+}
+.reply-btn,
+.like-btn {
+  padding-right: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $text-grey;
+  img {
+    padding-right: 10px;
+  }
+}
+/* UserPost.vue */
+#userpost {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.user-tweet {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.tweet-body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 0;
+}
+.tweet-body:nth-child(odd) {
+  background: $background-grey;
+}
+.right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+}
+.user-photo {
+  padding: 0 15px;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+.user-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+  padding-right: 10px;
+}
+.user-account-name,
+.post-time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+.user-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+}
+.reply-btn,
+.like-btn {
+  padding-right: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $text-grey;
+  img {
+    padding-right: 10px;
+  }
+}
+/* UserLikes.vue */
+#userlikes {
+  display: grid;
+  grid-template-columns: 378px 600px 1fr;
+  grid-template-rows: 422px 800px;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  grid-row: 1 / 3;
+}
+#main-content {
+  grid-row: 1 / 3;
+}
+.main-container {
+  overflow: auto;
+}
+#rightbar {
+  grid-row: 1 / 3;
+}
+#user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-tabs-link {
+  padding: 5px 10px 5px 0;
+}
+.tab-links {
+  color: #333;
+}
+.tab-links:hover {
+  color: $orange;
+}
+/* UserLeftbar.vue */
+a {
+  color: #333;
+}
+.leftbar-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #fff;
+  padding: 14px 103px;
+  position: relative;
+  min-height: 700px;
+}
+.alpha-logo {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 2rem;
+}
+.nav-bar {
+  color: $text-black;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  ul {
+    li {
+      cursor: pointer;
+      width: 235px;
+      height: 60px;
+      img {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+.post-btn {
+  border-radius: 100px;
+  width: 210px;
+  height: 45px;
+  background: $orange;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 45px;
+  text-align: center;
+  cursor: pointer;
+}
+.post-btn:hover {
+  background: #fff;
+  color: $orange;
+  border: 1px solid $orange;
+}
+.log-out {
+  position: absolute;
+  bottom: 20px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  color: $text-black;
+  cursor: pointer;
+  img {
+    margin-right: 1rem;
+  }
+}
+// modal
+.user-modal-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 19px;
+  line-height: 28px;
+  color: $text-black;
+  padding: 13px 0;
+  padding-left: 40px;
+}
+.modal-content {
+  border-radius: 14px;
+  border: none;
+}
+
+.modal-footer,
+.btn {
+  border: none;
+}
+
+.photo {
+  width: 50px;
+  height: 50px;
+  margin: -5px 0 0 -5px;
+}
+
+.photo-edit {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #ffffff;
+  margin: -65px 0 0 10px;
+}
+
+.cover-edit {
+  width: 500px;
+  height: 200px;
+}
+.name {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+}
+
+.account {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+
+.dot,
+.createdAt {
+  color: $text-grey;
+}
+
+.taged-user {
+  color: $orange;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.text-name,
+.text-description {
+  border: none;
+  border-bottom: 2px solid $text-grey;
+  background: $background-grey;
+}
+
+.text-name {
+  width: 450px;
+  height: 54px;
+}
+
+.text-description {
+  width: 450px;
+  height: 150px;
+}
+
+.input-wrapper > label {
+  width: 450px;
+}
+
+.text-name-label {
+  position: absolute;
+  top: 3%;
+  left: 8%;
+}
+
+.text-description-label {
+  position: absolute;
+  top: 3%;
+  left: 8%;
+}
+/* UserHeader.vue */
+// 使用者資料
+#upper-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 7px 19px;
+}
+.back-arrow {
+  margin-right: 2.5rem;
+}
+.cover-photo {
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+  object-fit: cover;
+}
+.user-photo-big {
+  img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+  }
+  position: absolute;
+  top: 124px;
+  left: 14px;
+}
+.btn-wrapper {
+  padding: 10px 15px;
+}
+.setting-btn {
+  width: 122px;
+  height: 40px;
+  border: 1px solid $orange;
+  color: $orange;
+  border-radius: 100px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 40px;
+}
+.setting-btn:hover {
+  background: $orange;
+  color: #fff;
+}
+.user-name {
+  padding-top: 10px;
+}
+.user-name > div:nth-child(1) {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 19px;
+  line-height: 28px;
+  color: $text-black;
+}
+.user-name > div:nth-child(2) {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+.user-follow > span {
+  margin-right: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: $main-black;
+}
+.cover-wrapper {
+  overflow: hidden;
+}
+/* Setting.vue */
+#setting {
+  display: grid;
+  grid-template-columns: 378px 650px;
+  width: 100%;
+  grid-gap: 1.5rem;
+}
+#leftbar {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#main-content-setting {
+  height: 700px;
+}
+.save-btn {
+  border-radius: 50px;
+  width: 122px;
+  height: 50px;
+  background: $orange;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 45px;
+  text-align: center;
+  cursor: pointer;
+}
+/* FolloeingBar.vue */
+.rightbar-wrapper {
+  margin-top: 15px;
+  width: 350px;
+  height: 517px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: $background-grey;
+  padding: 14px 15px;
+  position: relative;
+}
+.follow-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  color: $text-black;
+  padding-bottom: 0.5rem;
+}
+.user-data {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $line-grey;
+}
+.user-account {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .user-name {
+    padding-left: 1rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 15px;
+    color: $text-black;
+  }
+  .account-name {
+    padding-left: 1rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 15px;
+    color: $text-grey;
+  }
+}
+.follow-btn.active {
+  width: 92px;
+  height: 30px;
+  line-height: 30px;
+  background: $orange;
+  border-radius: 100px;
+  color: #fff;
+  text-align: center;
+}
+.follow-btn {
+  width: 62px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 100px;
+  color: $orange;
+  border: 1px solid $orange;
+  text-align: center;
+}
+.more-btn {
+  padding-top: 0.5rem;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+  color: $orange;
+}
+/* AllPosts.vue */
+#allposts {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.post-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.post-wrapper:nth-child(odd) {
+  background: $background-grey;
+}
+.user-tweets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user-info-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.user-img {
+  padding: 0 15px;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+.user-name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+  padding-right: 10px;
+}
+.user-account-name,
+.post-time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-grey;
+}
+.user-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $text-black;
+}
+.reply-btn,
+.like-btn {
+  padding-right: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  color: $text-grey;
+  img {
+    padding-right: 10px;
+  }
+}
